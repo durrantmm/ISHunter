@@ -1,0 +1,13 @@
+wd: test
+
+blastdb: /Users/mdurrant/OneDrive/Work/Research/BhattLab/data/blastdb/nt
+blast_threads: 12
+
+
+contig_dir: 0.contigs
+filtered_contig_dir: 1.size_filtered_contigs
+inverted_repeats: 2.inverted_repeats
+ir_filtered_contigs: 3.ir_filtered_contigs
+blast_dir: 4.blast
+genbank_dir: 5.genbank
+transposase_dir: 6.transposase_info
