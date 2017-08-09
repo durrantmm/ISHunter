@@ -43,10 +43,11 @@ rule find_inverted_repeats:
         outfile='{ir_dir}/{{sample}}.inv'.format(ir_dir=IR_DIR),
         outseq='{ir_dir}/{{sample}}.fasta'.format(ir_dir=IR_DIR)
     params:
-        gap=12,
-        threshold=50,
-        match=3,
-        mismatch=-4
+        # See ISQuest and ISScan
+        gap=-5,
+        threshold=10,
+        match=1,
+        mismatch=-2
     shell:
         'einverted {input} -gap {params.gap} -threshold {params.threshold} -match {params.match} -mismatch {params.mismatch} -outfile {output.outfile} -outseq {output.outseq}'
 
