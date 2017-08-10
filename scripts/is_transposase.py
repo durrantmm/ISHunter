@@ -3,16 +3,21 @@ from os.path import join, basename
 from collections import defaultdict
 
 
+# Check whether the two input ranges overlap (return bool)
 def overlap_range(gi_range, contig_range):
     if len(set(gi_range).intersection(contig_range)) != 0: return True
     return False
 
 
+# Remove input symbol from the beginning of the string (return int)
+# Example: <1, >2123
 def remove_symbol(string, sym):
     string = string.split(sym)[1]
     return int(string)
 
 
+# Parse the input string (from gi file) for the minimum and maximum values (return list)
+# Example: 124..1256, <313..>4325
 def get_range_gi(line):
     min = (line.split("..")[0]).rpartition(" ")[2]
     if "<" in min: min = remove_symbol(min, "<")
@@ -31,6 +36,7 @@ def get_range_gi(line):
     return range(min, max)
 
 
+# Check whether the line contains info about range (return bool)
 def is_range(line):
     if "CDS " in line:
         if "(" not in line and ")" not in line:
@@ -38,14 +44,15 @@ def is_range(line):
     return False
 
 
+# Parse string for the min and max values and reformat (return string)
+# Example: (123, 444) returns 123-444
 def strip_range(range):
     range = (str(range).strip("(")).strip(")")
     range_split = range.split(", ")
     return range_split[0] + "-" + range_split[1]
 
 
-# Determines whether the gi is an IS
-    # Finds first indication that it is IS
+# Find all instances where the gi is a mobile element (return list)
 def is_transposase(gi_contig, gi_dir):
     is_entries = []
     for key in gi_contig: # For each gi ID...
@@ -62,9 +69,10 @@ def is_transposase(gi_contig, gi_dir):
                             line = fin.readline()
 
                         # If it is an IS...
-                        if "transposase" in line or "transposon" in line:
+                        #if "transposase" in line or "transposon" in line:
+                        if line != "\n":
                             if overlap_range(gi_range_int, contig_gi_range_int):
-                                line = (line.split("=")[1]).split("\"")[1]
+                                line = ((line.strip("\n")).split("=")[1]).strip("\"")
                                 contig_gi_range = strip_range(contig_gi_range)
                                 contig_node_range = strip_range(contig_node_range)
 
@@ -74,6 +82,7 @@ def is_transposase(gi_contig, gi_dir):
     return is_entries
 
 
+# Build a map from gi ID to contig sample (return defaultdict(list))
 def build_gi_contig(f):
     gi_contig = defaultdict(list)
     for line in open(f):
@@ -100,7 +109,6 @@ def build_gi_contig(f):
             max_contig_gi = tmp
         max_contig_gi += 1
 
-
         entry = str(basename(f).split(".")[0]) + "\t" + "NODE_" + node_id
         gi_id += ".txt"
         if entry not in gi_contig[gi_id]:
@@ -120,3 +128,4 @@ def main():
 
 if __name__=="__main__":
     main()
+

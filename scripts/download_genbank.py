@@ -7,6 +7,7 @@ wd = sys.argv[1]
 output_dir = sys.argv[2]
 
 
+# Access files (input) from genbank and print to stdout
 def download_genbank(id_num):
     Entrez.email = "mli6@stanford.edu"
     handle = Entrez.efetch(db="nucleotide", id=id_num, rettype="gb", retmode="text")
@@ -16,6 +17,7 @@ def download_genbank(id_num):
             fout.write(line)
 
 
+# Compile a list of IS to be downloaded (checks if it has already been downloaded) (return list)
 def compile_IS_id(dir, complete):
     id_list = []
     for line in open(join(wd, dir)):
@@ -26,7 +28,6 @@ def compile_IS_id(dir, complete):
 
 
 def main():
-
     complete = []
     for f in os.listdir(output_dir):
         complete.append(f.split(".")[0])
