@@ -89,6 +89,13 @@ rule download_genbank:
     shell:
         "python scripts/download_genbank.py %s {params.outdir} ; touch {output.report}" % BLAST_DIR
 
+rule ensure_genbank_dir:
+    input:
+        report='{genbank_dir}/complete.txt'.format(genbank_dir=GENBANK_DIR)
+    output:
+        outdir=GENBANK_DIR
+    run:
+        "OUTDIR IS THERE."
 
 rule identify_transposases:
     input:
