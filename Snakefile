@@ -76,7 +76,7 @@ rule blastx_contigs:
     threads:
         config['blast_threads']
     shell:
-        "blastx -db {params.db} -query {input} -out {output.outblast} -outfmt \“10 qseqid sseqid qstart qend sstart send\” -num_threads {threads}"
+        "blastx -db {params.db} -query {input} -out {output.outblast} -outfmt '10 qseqid sseqid qstart qend sstart send' -num_threads {threads}"
 
 
 rule download_genbank:
