@@ -60,8 +60,10 @@ rule filter_contigs_inverted_repeats:
         filt_contig='{filt_contig_dir}/{{sample}}.fasta'.format(filt_contig_dir=FILT_CONTIG_DIR)
     output:
         '{outdir}/{{sample}}.fasta'.format(outdir=IR_FILTERED_CONTIG_DIR)
+    params:
+        min_length=200
     shell:
-        'python scripts/filter_inverted.py {input.inv_fasta} {input.filt_contig} > {output}'
+        'python scripts/filter_inverted.py {input.inv_fasta} {input.filt_contig} {params.min_length} > {output}'
 
 
 rule blastx_contigs:
