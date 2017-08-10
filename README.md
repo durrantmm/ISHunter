@@ -2,6 +2,11 @@
 
 ## Contents
 * [Introduction](#introduction)
+* [Installation](#installation)
+	* [Download ISHunter](#download-ishunter)
+	* [Install ISHunter](#install-ishunter)
+	* [Test Installation](#test-installation)
+* [Preparing Input Files](#preparing-input-files)
 
 ## Introduction
 The ISHunter workflow is designed to...
