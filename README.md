@@ -1,5 +1,8 @@
 # ISHunter
 
+## Contents
+* [Introduction](#introduction)
+
 ## Introduction
 The ISHunter workflow is designed to...
 1. Filter the contigs with a specified range of lengths and coverage cutoff, and then extract the contigs with inverted repeats.
