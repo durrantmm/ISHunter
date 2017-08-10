@@ -21,6 +21,8 @@ SAMPLES = WC.sample
 rule all:
     input:
         expand('{transposase_dir}/{{sample}}.txt'.format(transposase_dir=TRANSPOSASE_DIR), sample=SAMPLES)
+    run:
+	print("ISHUNTER FINISHED WITH NO EXCEPTIONS!")
 
 
 rule filter_contigs:
