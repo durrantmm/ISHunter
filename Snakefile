@@ -83,10 +83,11 @@ rule download_genbank:
     input:
         blast_results=expand('{blast_dir}/{{sample}}.txt'.format(blast_dir=BLAST_DIR), sample=SAMPLES)
     output:
-        outdir=GENBANK_DIR,
         report='{genbank_dir}/complete.txt'.format(genbank_dir=GENBANK_DIR)
+    params:
+        outdir=GENBANK_DIR
     shell:
-        "python scripts/download_genbank.py %s {output.outdir} ; touch {output.report}" % BLAST_DIR
+        "python scripts/download_genbank.py %s {params.outdir} ; touch {output.report}" % BLAST_DIR
 
 
 rule identify_transposases:
