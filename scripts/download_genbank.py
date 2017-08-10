@@ -10,7 +10,7 @@ output_dir = sys.argv[2]
 # Access files (input) from genbank and print to stdout
 def download_genbank(id_num):
     Entrez.email = "mli6@stanford.edu"
-    handle = Entrez.efetch(db="nucleotide", id=id_num, rettype="gb", retmode="text")
+    handle = Entrez.efetch(db="protein", id=id_num, rettype="gb", retmode="text")
     path = join(output_dir, id_num + ".txt")
     with open(path, 'w') as fout:
         for line in handle:
